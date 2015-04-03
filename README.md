@@ -18,6 +18,14 @@ The bash script ```runt``` performs the concatenation and executes the resulting
 ./runt calc-check calc
 ```
 
+## Running tests with Windows batch
+
+The batch file ```runt.bat``` performs the concatenation and executes the resulting file. For example, to run the 'calc' example provided in this repo, run ```runt.bat``` as follows:
+
+```shell
+runt calc-check calc
+```
+
 ## Running tests with JCL
 
 On a zOS system, concatenate the files and run the resulting Rexx program using any mechanism you prefer. For example, you could use ```IKJEFT01``` to run a test script. The JCL might look something like this (from http://documentation.microfocus.com/help/index.jsp?topic=%2Fcom.microfocus.eclipse.infocenter.enterpriseserver.net%2FGUID-64EB1C60-F89C-4C9F-9D55-03B15A2AAB60.html):
