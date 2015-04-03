@@ -1,0 +1,53 @@
+/* rexx unit test framework
+
+   concatenate these files:
+
+   t1 test-script t2 rexx-file-to-test t3 > t.rexx
+
+   then execute t.rexx
+
+   this file is t3
+*/
+
+/* functions for the test framework */
+
+context:
+parse arg desc
+contextdesc = desc
+return ''
+
+
+check:
+count = count + 1
+checkresult.0 = count
+parse arg description, assertion
+checkresult.count = count || '. ' || assertion || ' ' || description
+return ''
+
+expect:
+parse arg actual, op, expected
+if op == 'to be' then return report(actual, op, expected, actual == expected)
+if op == 'not to be' then return report(actual, op, expected, actual \== expected)
+
+report:
+parse arg actual, op, expected, res
+lineout = ''
+select
+    when res == 0 then do
+         failed = failed + 1
+         lineout = '*** FAILED: Expected ' || expected || ' but got ' || actual
+         end
+    when res == 1 then do
+         passed = passed + 1
+         lineout = '    PASSED:'
+         end   
+end     
+return lineout    
+
+counts:
+text.0 = 3
+text.1 = count ' checks were executed'
+text.2 = passed ' checks passed'
+text.3 = failed ' checks failed'
+return text
+
