@@ -27,7 +27,8 @@ return ''
 expect:
 parse arg actual, op, expected
 if op == 'to be' then return report(actual, op, expected, actual == expected)
-if op == 'not to be' then return report(actual, op, expected, actual \== expected)
+if op == 'not to be' then return report(actual, op, expected, actual \==,
+expected)
 
 report:
 parse arg actual, op, expected, res
@@ -35,12 +36,20 @@ lineout = ''
 select
     when res == 0 then do
          failed = failed + 1
-         lineout = '*** FAILED: Expected ' || expected || ' but got ' || actual
+         lineout = '*** FAILED: Expected "' || expected || '"',
+                   || ' but got "' || actual || '" '
          end
     when res == 1 then do
          passed = passed + 1
          lineout = '    PASSED:'
-         end   
+         end
+    otherwise
+         say 'error occuredin the testing framework while generating report'
+         say 'the execution result "'  || res || '" is not 1 or 0'
+         say 'the operation is "'      || op || '"'
+         say 'the expected value is "' || expected || '"'
+         say 'check if all expect-calls are parameterized correctly!'
+         exit 13
 end     
 return lineout    
 
@@ -50,4 +59,3 @@ text.1 = count ' checks were executed'
 text.2 = passed ' checks passed'
 text.3 = failed ' checks failed'
 return text
-

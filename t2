@@ -28,4 +28,6 @@ end
 
 say divider
 
-exit
+if failed = 0 then exit 0
+else exit 4
+ 
