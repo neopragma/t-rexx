@@ -75,7 +75,7 @@ On a zOS system, concatenate the files and run the resulting Rexx program using 
 ## Change historic
 * 0.0.1 initial version by Dave Nicolette
 * 0.0.2 
-  - Variable initialization move to init-procedure in t3.rexx
+  - Variable initialization moved to init-procedure in t3.rexx
   - t1, t2 and t3 renamed to .rexx to trigger indent, coloring etc in VScode
   - check() function expanded to handle both calls to functions and procedures
   - check() function expanded to compare named varables instead of only return values
