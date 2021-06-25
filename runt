@@ -6,7 +6,7 @@
 # $2 -> the application to test (rexx)
 #
 # This script concatenates the files:
-# t1 + $1 + t2 + $2 + t3
+# t1.rexx + $1 + t2.rexx + $2 + t3.rexx
 #
 # and executes the resulting file.
 #
@@ -15,5 +15,5 @@
 # 03 Apr 2015
 #----------------------------------------------------------------------------
 
-cat t1 "${1}.rexx" t2 "${2}.rexx" t3 > t.rexx
+cat t1.rexx "${1}.rexx" t2.rexx "${2}.rexx" t3.rexx > t.rexx
 rexx t.rexx
