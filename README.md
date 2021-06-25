@@ -72,7 +72,7 @@ On a zOS system, concatenate the files and run the resulting Rexx program using 
 // 
 ```
  
-## Change historic
+## Change history
 * 0.0.1 initial version by Dave Nicolette
 * 0.0.2 
   - Variable initialization moved to init-procedure in t3.rexx
