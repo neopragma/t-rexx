@@ -31,20 +31,21 @@ There are two rexx functions to call in your test script:
 * check()
 
 Syntax:                                                                    
-  context('descripttion') is the test suite description                      
+  * context('descripttion') is the test suite description                      
 
-  check() is the check procedure to check returncodes from a function or variables set/changed in a procedure.
-  input to check()   
-    arg1: Description of the test  
-    arg2: procedure call incl. argum   ents
-    arg3: variable name to check if    any
-    arg4: operand like =, <>, >, <, >= or <=
-    arg5: expected value
+  * check() is the check procedure to check returncodes from a function or variables set/changed in a procedure.
+  - input to check()   
+    - arg1: Description of the test  
+    - arg2: procedure call incl. argum   ents
+    - arg3: variable name to check if    any
+    - arg4: operand like =, <>, >, <, >= or <=
+    - arg5: expected value
   
   Samples:
-    check( 'Adding 5 and 2', "calc(5,  '+', 2)",, 'to be', 7)
-    check( 'Dividing 15 by 3 = 5', "calcWithoutAnyReturn 15, '/', 3", 'calcResult', '=', 5)
-
+```shell  
+check( 'Adding 5 and 2', "calc(5,  '+', 2)",, 'to be', 7)
+check( 'Dividing 15 by 3 = 5', "calcWithoutAnyReturn 15, '/', 3", 'calcResult', '=', 5)
+```
 
 ## Running tests with JCL
 
