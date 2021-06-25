@@ -36,8 +36,8 @@ Syntax:
   * check() is the check procedure to check returncodes from a function or variables set/changed in a procedure.
   - input to check()   
     - arg1: Description of the test  
-    - arg2: procedure call incl. argum   ents
-    - arg3: variable name to check if    any
+    - arg2: procedure call incl. arguments
+    - arg3: variable name to check if any
     - arg4: operand like =, <>, >, <, >= or <=
     - arg5: expected value
   
