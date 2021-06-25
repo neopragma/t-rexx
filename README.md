@@ -80,4 +80,5 @@ On a zOS system, concatenate the files and run the resulting Rexx program using 
   - check() function expanded to handle both calls to functions and procedures
   - check() function expanded to compare named varables instead of only return values
   - check() function expanded also to handle =, <, >, <>, ^= >= and <=
+  - call to expect() funktion moved from test script to check() function in t3.rexx
   - a lot more samples added.
