@@ -40,11 +40,15 @@ Syntax:
     - arg3: variable name to check if any
     - arg4: operand like =, <>, >, <, >= or <=
     - arg5: expected value
-  
+  * mock() is the function to call if you want to mock a call and replace it with some other rexx code.
+  - input to mock()
+    - arg1: Name of procedure to mock
+    - arg2: Rexx code to replace the procedure call with. Lines must be seperated by ;
   Samples:
 ```shell  
 check( 'Adding 5 and 2', "calc(5,  '+', 2)",, 'to be', 7)
 check( 'Dividing 15 by 3 = 5', "calcWithoutAnyReturn 15, '/', 3", 'calcResult', '=', 5)
+mock('sayCalcResult', "say 'call to sayCalcResult mocked #1'; say 'call to sayCalcResult mocked #2'; say 'call to sayCalcResult mocked #3';")
 ```
 
 ## Running tests with JCL
@@ -82,3 +86,5 @@ On a zOS system, concatenate the files and run the resulting Rexx program using 
   - check() function expanded also to handle =, <, >, <>, ^= >= and <=
   - call to expect() funktion moved from test script to check() function in t3.rexx
   - a lot more samples added.
+* 0.0.3
+  - mock() function added

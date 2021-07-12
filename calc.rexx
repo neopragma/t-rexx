@@ -22,5 +22,11 @@ calcWithoutAnyReturn:
     calcResult = val1 * val2
   if op == '/' then 
     calcResult = val1 / val2
+  call sayCalcResult calcResult
+return
+
+sayCalcResult:
+  arg lineToPrint
+  say 'sayCalcResult printing:' lineToPrint
 return
 
