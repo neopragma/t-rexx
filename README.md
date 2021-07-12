@@ -45,7 +45,7 @@ Syntax:
     - input to mock()
       - arg1: Name of procedure to mock
       - arg2: Rexx code to replace the procedure call with. Lines must be seperated by ;
-  Samples:
+  * Samples:
 ```shell  
 check( 'Adding 5 and 2', "calc(5,  '+', 2)",, 'to be', 7)
 check( 'Dividing 15 by 3 = 5', "calcWithoutAnyReturn 15, '/', 3", 'calcResult', '=', 5)
