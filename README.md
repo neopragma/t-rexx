@@ -26,24 +26,25 @@ The batch file ```runt.bat``` performs the concatenation and executes the result
 runt calc-check calc
 ```
 ## Writing your own test
-There are two rexx functions to call in your test script:
+There are three rexx functions to call in your test script:
 * context()
 * check()
+* mock()
 
 Syntax:                                                                    
   * context('descripttion') is the test suite description                      
 
   * check() is the check procedure to check returncodes from a function or variables set/changed in a procedure.
-  - input to check()   
-    - arg1: Description of the test  
-    - arg2: procedure call incl. arguments
-    - arg3: variable name to check if any
-    - arg4: operand like =, <>, >, <, >= or <=
-    - arg5: expected value
+    - input to check()   
+      - arg1: Description of the test  
+      - arg2: procedure call incl. arguments
+      - arg3: variable name to check if any
+      - arg4: operand like =, <>, >, <, >= or <=
+      - arg5: expected value
   * mock() is the function to call if you want to mock a call and replace it with some other rexx code.
-  - input to mock()
-    - arg1: Name of procedure to mock
-    - arg2: Rexx code to replace the procedure call with. Lines must be seperated by ;
+    - input to mock()
+      - arg1: Name of procedure to mock
+      - arg2: Rexx code to replace the procedure call with. Lines must be seperated by ;
   Samples:
 ```shell  
 check( 'Adding 5 and 2', "calc(5,  '+', 2)",, 'to be', 7)
