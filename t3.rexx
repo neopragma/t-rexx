@@ -51,6 +51,7 @@ check:
     call writeNewProgramSource
     interpret "call '"newProgramSource"'"
     mockPresented = 0
+    mockedProcedures = ''
     return ''
   end
 
@@ -149,11 +150,10 @@ return ''
 findAndReplaceMockedFunctions:
   iy = 0
   do ix = 1 to outputSourceline.0
-    upperSourceLine = strip(outputsourceline.ix)
+    upperSourceLine = strip(outputSourceline.ix)
     upper upperSourceLine
-    if left(upperSourceLine,4) = 'CALL' then do
-      calledProcedureName = subword(upperSourceLine,2,1)
-      upper calledProcedureName
+    calledProcedureName = findProcedureName(upperSourceLine)
+    if calledProcedureName ^= '' then do
       mockedProcedureNumber = wordpos(calledProcedureName,mockedProcedures)
       if mockedProcedureNumber > 0 then do
         iy = iy + 1
@@ -180,6 +180,23 @@ findAndReplaceMockedFunctions:
   end
   newOutputSourceLine.0 = iy
 return
+
+findProcedureName: procedure
+  arg sourceLine
+
+  procedureName = ''
+
+  if left(sourceLine,5) = 'CALL ' then
+    procedureName = subword(sourceLine,2,1)
+  else do
+    parse var sourceLine token1'='token2
+    leftBraketPos = pos('(', token2)
+    rightBraketPos = pos(')', token2)
+    
+    if token2 ^= '' & leftBraketPos > 0 & rightBraketPos > 0 & leftBraketPos < rightBraketPos then
+      procedureName = left(token2,leftBraketPos-1)
+  end
+return strip(procedureName)
 
 writeNewProgramSource:
   newProgramSource = 'tm'checkNumber'.rexx'

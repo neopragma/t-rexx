@@ -23,10 +23,16 @@ calcWithoutAnyReturn:
   if op == '/' then 
     calcResult = val1 / val2
   call sayCalcResult calcResult
+  rc = sayCalcResultWithReturn(calcResult)
 return
 
-sayCalcResult:
+sayCalcResult: procedure
   arg lineToPrint
   say 'sayCalcResult printing:' lineToPrint
 return
+
+sayCalcResultWithReturn: procedure
+  arg lineToPrint
+  say 'sayCalcResultWithReturn printing:' lineToPrint
+return 8
 

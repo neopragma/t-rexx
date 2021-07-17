@@ -6,7 +6,7 @@
  *   mock() is used to mock out a call to another procedure and insert some
  *   replacement code.
  *   - mock() is only valid for 1 (one) check
- *   - no global mock() is implementated.
+ *   - no global mock() is implementated yet.
  *
  *   check() is the check procedure to check returncodes from a function or 
  *   variables set or changed in a pr   ocedure.
@@ -18,8 +18,8 @@
  *      arg5: expected value
  ******************************************************************************/
 
-context('Checking ',
-        'the calc function and ',
+context('Checking',
+        'the calc function and',
         'calcWithoutAnyReturn proedure')
 
 check( 'Check if variable "op" is set to "to be"', 'calc(3, "+", 4)', 'op', 'to be', 'to be'  )
@@ -46,15 +46,18 @@ check( 'Dividing 15 by 3 <= 5', 'calc(15, "/", 3)',, '<=', 5)
 check( 'Dividing 15 by 3 > 6 - must fail', 'calc(15, "/", 3)',, '>', 6)
 check( 'Dividing 15 by 3 >= 6 - must fail', 'calc(15, "/", 3)',, '>=', 6)
 check( 'Dividing 15 by 3 < 6 - must fail', 'calc(15, "/", 3)',, '<', 5)
-check( 'Dividing 15 by 3 <= 6 - must fail', 'calc(15, "/", 3)',, '<=', 4)
 
+mock('sayCalcResultWithReturn', "say 'call to sayCalcResultWithReturn mocked #1'")
 mock('sayCalcResult', "say 'call to sayCalcResult mocked #1'")
+check( 'Dividing 15 by 3 <= 6 - must fail', 'calcWithoutAnyReturn 15, "/", 3','calcResult', '<=', 4)
+
+/*mock('sayCalcResult', "say 'call to sayCalcResult mocked #1'")*/
 check( 'Dividing 15 by 3 = 5', 'calcWithoutAnyReturn 15, "/", 3', 'calcResult', '=', 5)
 
-mock('sayCalcResult', "say 'call to sayCalcResult mocked #1'; say 'call to sayCalcResult mocked #2';")
+/*mock('sayCalcResult', "say 'call to sayCalcResult mocked #1'; say 'call to sayCalcResult mocked #2';")*/
 check( 'Dividing 15 by 3 >= 4', 'calcWithoutAnyReturn 15, "/", 3', 'calcResult', '>=', 4)
 
-mock('sayCalcResult', "say 'call to sayCalcResult mocked #1'; say 'call to sayCalcResult mocked #2'; say 'call to sayCalcResult mocked #3';")
+/*mock('sayCalcResult', "say 'call to sayCalcResult mocked #1'; say 'call to sayCalcResult mocked #2'; say 'call to sayCalcResult mocked #3';")*/
 check( 'Dividing 15 by 3 != 4',, 
        'calcWithoutAnyReturn 15, "/", 3',, 
        'calcResult',,
