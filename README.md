@@ -48,7 +48,7 @@ Syntax:
       - arg1: Name of procedure to mock
       - arg2: Rexx code to replace the procedure call with. Lines must be seperated by ;
   - note: globalmock() resets any localmock() so always use globalmock() before localmock()
-  - limitation: the same procedure call cannot first be mocked by globalmock() and then later be remocked by a localmock() - unpredicted result will ucure.
+  - limitation: the same procedure call cannot first be mocked by globalmock() and then later be remocked by a localmock() - unpredicted result will occure.
   * Samples:
 ```shell  
 globalmock('sayCalcResultWithReturn', "say 'call to sayCalcResultWithReturn mocked #1'; say 'call to sayCalcResultWithReturn mocked #2';")
