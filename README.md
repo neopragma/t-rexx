@@ -83,7 +83,7 @@ On a zOS system, concatenate the files and run the resulting Rexx program using 
  
 ## Change history
 * 0.0.1 initial version by Dave Nicolette
-* 0.0.2 (not testet on z/OS nor Windows)
+* 0.0.2 (not tested on z/OS nor Windows)
   - Variable initialization moved to init-procedure in t3.rexx
   - t1, t2 and t3 renamed to .rexx to trigger indent, coloring etc in VScode
   - check() function expanded to handle both calls to functions and procedures
@@ -91,9 +91,9 @@ On a zOS system, concatenate the files and run the resulting Rexx program using 
   - check() function expanded also to handle =, <, >, <>, ^= >= and <=
   - call to expect() funktion moved from test script to check() function in t3.rexx
   - a lot more samples added.
-* 0.0.3 (not testet on z/OS nor Windows)
+* 0.0.3 (not tested on z/OS nor Windows)
   - mock() function added
-* 0.0.4 (not testet on z/OS nor Windows)
+* 0.0.4 (not tested on z/OS nor Windows)
   - mock() function renamed to localmock()
   - globalmock() added
   - result from program with mocks collected and printed at the end of the run
