@@ -94,3 +94,7 @@ On a zOS system, concatenate the files and run the resulting Rexx program using 
   - a lot more samples added.
 * 0.0.3
   - mock() function added
+* 0.0.4
+  - mock() function renamed to localmock()
+  - globalmock() added
+  - result from program with mocks collected and printed at the end of the run
