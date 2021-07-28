@@ -26,15 +26,14 @@ The batch file ```runt.bat``` performs the concatenation and executes the result
 runt calc-check calc
 ```
 ## Writing your own test
-There are three rexx functions to call in your test script:
+There are four rexx functions to call in your test script:
 * context()
-* check()
-* localmock()
 * globalmock()
+* localmock()
+* check()
 
 Syntax:                                                                    
   * context('descripttion') is the test suite description                      
-
   * check() is the check procedure to check returncodes from a function or variables set/changed in a procedure.
     - input to check()   
       - arg1: Description of the test  
@@ -84,7 +83,7 @@ On a zOS system, concatenate the files and run the resulting Rexx program using 
  
 ## Change history
 * 0.0.1 initial version by Dave Nicolette
-* 0.0.2 (not testet on Windows)
+* 0.0.2 (not testet on z/OS nor Windows)
   - Variable initialization moved to init-procedure in t3.rexx
   - t1, t2 and t3 renamed to .rexx to trigger indent, coloring etc in VScode
   - check() function expanded to handle both calls to functions and procedures
@@ -92,9 +91,9 @@ On a zOS system, concatenate the files and run the resulting Rexx program using 
   - check() function expanded also to handle =, <, >, <>, ^= >= and <=
   - call to expect() funktion moved from test script to check() function in t3.rexx
   - a lot more samples added.
-* 0.0.3 (not testet on Windows)
+* 0.0.3 (not testet on z/OS nor Windows)
   - mock() function added
-* 0.0.4 (not testet on Windows)
+* 0.0.4 (not testet on z/OS nor Windows)
   - mock() function renamed to localmock()
   - globalmock() added
   - result from program with mocks collected and printed at the end of the run
