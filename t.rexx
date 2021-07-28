@@ -2,6 +2,162 @@
    concatenate these files:
    t1.rexx test-script t2.rexx rexx-file-to-test t3.rexx > t.rexx
    then execute t.rexx
+   this file is t1.rexx
+*/
+
+call init(arg(1))
+
+/* Test script below *********************************************************/
+
+/*******************************************************************************
+ * test script to demonstrate the rexx unit test framework                    
+ * Syntax:                                                                    
+ *   context('descripttion') is the test suite description                      
+ *
+ *   mock() is used to mock out a call to another procedure and insert some
+ *   replacement code.
+ *   - mock() is only valid for 1 (one) check
+ *   - no global mock() is implementated yet.
+ *
+ *   check() is the check procedure to check returncodes from a function or 
+ *   variables set or changed in a pr   ocedure.
+ *   input to check()   
+ *      arg1: Description of the test  
+ *      arg2: procedure call incl. argum   ents
+ *      arg3: variable name to check if    any
+ *      arg4: operand like =, <>, >, <, >= or <=
+ *      arg5: expected value
+ ******************************************************************************/
+
+context('Checking',
+        'the calc function and',
+        'calcWithoutAnyReturn proedure')
+
+check( 'Check if variable "op" is set to "to be"', 'calc(3, "+", 4)', 'op', 'to be', 'to be'  )
+check( 'Check if variable "op" is set to "="', 'calc(3, "+", 4)', 'op', '=', '='  )
+check( 'Adding 5 and 2', 'calc(5,  "+", 2)',, 'to be', 7)
+check( 'Subtracting 3 from 10', 'calc(10, "-", 3)',, 'to be', 7)
+check( 'Multiplying 15 and 2 - must fail',  'calc(15, "*", 2)',, 'to be', 31)
+check( 'Dividing 3 into 15 not to be 13', 'calc(15, "/", 3)',, 'not to be', 13)
+check( 'Dividing 3 into 15 ^= 13', 'calc(15, "/", 3)',, '^=', 13)
+check( 'Dividing 3 into 15 <> 13', 'calc(15, "/", 3)',, '<>', 13)
+check( 'Dividing 3 into 15 not to be 5 - must fail', 'calc(15, "/", 3)',, 'not to be', 5)
+check( 'Dividing 3 into 15 ^= 5 - must fail', 'calc(15, "/", 3)',, '^=', 5)
+
+globalmock('sayCalcResult2', "say 'call to sayCalcResult2 globalMocked'")
+
+check( 'Dividing 3 into 15 <> 5 - must fail',, 
+       'calc(15, "/", 3)',,
+       ,, 
+       '<>',, 
+       5)
+check( 'Dividing 15 by 3 > 4', 'calc(15, "/", 3)',, '>', 4)
+check( 'Dividing 15 by 3 >= 4', 'calc(15, "/", 3)',, '>=', 4)
+check( 'Dividing 15 by 3 >= 5', 'calc(15, "/", 3)',, '>=', 5)
+check( 'Dividing 15 by 3 < 6', 'calc(15, "/", 3)',, '<', 6)
+check( 'Dividing 15 by 3 <= 6', 'calc(15, "/", 3)',, '<=', 6)
+check( 'Dividing 15 by 3 <= 5', 'calc(15, "/", 3)',, '<=', 5)
+check( 'Dividing 15 by 3 > 6 - must fail', 'calc(15, "/", 3)',, '>', 6)
+check( 'Dividing 15 by 3 >= 6 - must fail', 'calc(15, "/", 3)',, '>=', 6)
+check( 'Dividing 15 by 3 < 6 - must fail', 'calc(15, "/", 3)',, '<', 5)
+
+localmock('sayCalcResultWithReturn', "say 'call to sayCalcResultWithReturn mocked #1'")
+localmock('sayCalcResult', "say 'call to sayCalcResult mocked #1'")
+check( 'Dividing 15 by 3 <= 6 - must fail', 'calcWithoutAnyReturn 15, "/", 3','calcResult', '<=', 4)
+
+localmock('sayCalcResult', "say 'call to sayCalcResult mocked #1'")
+check( 'Dividing 15 by 3 = 5', 'calcWithoutAnyReturn 15, "/", 3', 'calcResult', '=', 5)
+
+localmock('sayCalcResult', "say 'call to sayCalcResult mocked #1'; say 'call to sayCalcResult mocked #2';")
+check( 'Dividing 15 by 3 >= 4', 'calcWithoutAnyReturn 15, "/", 3', 'calcResult', '>=', 4)
+
+localmock('sayCalcResult', "say 'call to sayCalcResult mocked #1'; say 'call to sayCalcResult mocked #2'; say 'call to sayCalcResult mocked #3';")
+check( 'Dividing 15 by 3 != 4',, 
+       'calcWithoutAnyReturn 15, "/", 3',, 
+       'calcResult',,
+       '>=',, 
+       4)
+
+/* rexx unit test framework
+   concatenate these files:
+   t1.rexx test-script t2.rexx rexx-file-to-test t3.rexx > t.rexx
+   then execute t.rexx
+   this file is t2.rexx
+*/
+
+/* display the test results */
+
+if areWeMocking then
+  return assertion
+else do
+  say divider
+  say contextdesc
+  say spacer
+
+  do i = 1 to checkresult.0
+    say checkresult.i
+  end    
+
+  say spacer
+
+  text = counts()
+  do i = 1 to text.0
+    say text.i
+  end
+
+  say divider
+
+  exit
+end
+
+/* a rexx application to demonstrate the unit test framework */
+
+calc:
+  parse arg val1, op, val2
+  if op == '+' then 
+    calcResult = val1 + val2
+  if op == '-' then 
+    calcResult = val1 - val2
+  if op == '*' then 
+    calcResult = val1 * val2
+  if op == '/' then 
+    calcResult = val1 / val2
+  call sayCalcResult2 calcResult
+return calcResult
+
+calcWithoutAnyReturn:
+  parse arg val1, op, val2
+  if op == '+' then 
+    calcResult = val1 + val2
+  if op == '-' then 
+    calcResult = val1 - val2
+  if op == '*' then 
+    calcResult = val1 * val2
+  if op == '/' then 
+    calcResult = val1 / val2
+  call sayCalcResult calcResult
+  rc = sayCalcResultWithReturn(calcResult)
+return
+
+sayCalcResult: procedure
+  arg lineToPrint
+  say 'sayCalcResult printing:' lineToPrint
+return
+
+sayCalcResult2: procedure
+  arg lineToPrint
+  say 'sayCalcResult2 printing:' lineToPrint
+return
+
+sayCalcResultWithReturn: procedure
+  arg lineToPrint
+  say 'sayCalcResultWithReturn printing:' lineToPrint
+return 8
+
+/* rexx unit test framework
+   concatenate these files:
+   t1.rexx test-script t2.rexx rexx-file-to-test t3.rexx > t.rexx
+   then execute t.rexx
    this file is t3.rexx
 */
 

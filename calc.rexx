@@ -3,14 +3,15 @@
 calc:
   parse arg val1, op, val2
   if op == '+' then 
-    return val1 + val2
+    calcResult = val1 + val2
   if op == '-' then 
-    return val1 - val2
+    calcResult = val1 - val2
   if op == '*' then 
-    return val1 * val2
+    calcResult = val1 * val2
   if op == '/' then 
-    return val1 / val2
-return
+    calcResult = val1 / val2
+  call sayCalcResult2 calcResult
+return calcResult
 
 calcWithoutAnyReturn:
   parse arg val1, op, val2
@@ -29,6 +30,11 @@ return
 sayCalcResult: procedure
   arg lineToPrint
   say 'sayCalcResult printing:' lineToPrint
+return
+
+sayCalcResult2: procedure
+  arg lineToPrint
+  say 'sayCalcResult2 printing:' lineToPrint
 return
 
 sayCalcResultWithReturn: procedure

@@ -32,6 +32,9 @@ check( 'Dividing 3 into 15 ^= 13', 'calc(15, "/", 3)',, '^=', 13)
 check( 'Dividing 3 into 15 <> 13', 'calc(15, "/", 3)',, '<>', 13)
 check( 'Dividing 3 into 15 not to be 5 - must fail', 'calc(15, "/", 3)',, 'not to be', 5)
 check( 'Dividing 3 into 15 ^= 5 - must fail', 'calc(15, "/", 3)',, '^=', 5)
+
+globalmock('sayCalcResult2', "say 'call to sayCalcResult2 globalMocked'")
+
 check( 'Dividing 3 into 15 <> 5 - must fail',, 
        'calc(15, "/", 3)',,
        ,, 
@@ -47,17 +50,17 @@ check( 'Dividing 15 by 3 > 6 - must fail', 'calc(15, "/", 3)',, '>', 6)
 check( 'Dividing 15 by 3 >= 6 - must fail', 'calc(15, "/", 3)',, '>=', 6)
 check( 'Dividing 15 by 3 < 6 - must fail', 'calc(15, "/", 3)',, '<', 5)
 
-mock('sayCalcResultWithReturn', "say 'call to sayCalcResultWithReturn mocked #1'")
-mock('sayCalcResult', "say 'call to sayCalcResult mocked #1'")
+localmock('sayCalcResultWithReturn', "say 'call to sayCalcResultWithReturn mocked #1'")
+localmock('sayCalcResult', "say 'call to sayCalcResult mocked #1'")
 check( 'Dividing 15 by 3 <= 6 - must fail', 'calcWithoutAnyReturn 15, "/", 3','calcResult', '<=', 4)
 
-/*mock('sayCalcResult', "say 'call to sayCalcResult mocked #1'")*/
+localmock('sayCalcResult', "say 'call to sayCalcResult mocked #1'")
 check( 'Dividing 15 by 3 = 5', 'calcWithoutAnyReturn 15, "/", 3', 'calcResult', '=', 5)
 
-/*mock('sayCalcResult', "say 'call to sayCalcResult mocked #1'; say 'call to sayCalcResult mocked #2';")*/
+localmock('sayCalcResult', "say 'call to sayCalcResult mocked #1'; say 'call to sayCalcResult mocked #2';")
 check( 'Dividing 15 by 3 >= 4', 'calcWithoutAnyReturn 15, "/", 3', 'calcResult', '>=', 4)
 
-/*mock('sayCalcResult', "say 'call to sayCalcResult mocked #1'; say 'call to sayCalcResult mocked #2'; say 'call to sayCalcResult mocked #3';")*/
+localmock('sayCalcResult', "say 'call to sayCalcResult mocked #1'; say 'call to sayCalcResult mocked #2'; say 'call to sayCalcResult mocked #3';")
 check( 'Dividing 15 by 3 != 4',, 
        'calcWithoutAnyReturn 15, "/", 3',, 
        'calcResult',,

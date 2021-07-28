@@ -29,7 +29,8 @@ runt calc-check calc
 There are three rexx functions to call in your test script:
 * context()
 * check()
-* mock()
+* localmock()
+* globalmock()
 
 Syntax:                                                                    
   * context('descripttion') is the test suite description                      
@@ -41,15 +42,19 @@ Syntax:
       - arg3: variable name to check if any
       - arg4: operand like =, <>, >, <, >= or <=
       - arg5: expected value
-  * mock() is the function to call if you want to mock a call and replace it with some other rexx code.
-    - input to mock()
+  * localmock() is the function to call if you want to mock a call and replace it with some other rexx code. Localmock() is reset by the following call to check() and a following call to globalmock()
+  * globalmock() is the function to call if you want to mock a call and replace it with some other rexx code. Globalmock() is in effect for the rest of the test suite.
+    - input to localmock() and to globalmock()
       - arg1: Name of procedure to mock
       - arg2: Rexx code to replace the procedure call with. Lines must be seperated by ;
+  - note: globalmock() resets any localmock() so always use globalmock() before localmock()
+  - limitation: the same procedure call cannot first be mocked by globalmock() and the later be remocked by a localmock() - unpredicted result will ucure.
   * Samples:
 ```shell  
 check( 'Adding 5 and 2', "calc(5,  '+', 2)",, 'to be', 7)
 check( 'Dividing 15 by 3 = 5', "calcWithoutAnyReturn 15, '/', 3", 'calcResult', '=', 5)
-mock('sayCalcResult', "say 'call to sayCalcResult mocked #1'; say 'call to sayCalcResult mocked #2'; say 'call to sayCalcResult mocked #3';")
+localmock('sayCalcResult', "say 'call to sayCalcResult mocked #1'; say 'call to sayCalcResult mocked #2'; say 'call to sayCalcResult mocked #3';")
+globalmock('sayCalcResultWithReturn', "say 'call to sayCalcResultWithReturn mocked #1'; say 'call to sayCalcResultWithReturn mocked #2';")
 ```
 
 ## Running tests with JCL
