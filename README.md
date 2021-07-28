@@ -48,13 +48,13 @@ Syntax:
       - arg1: Name of procedure to mock
       - arg2: Rexx code to replace the procedure call with. Lines must be seperated by ;
   - note: globalmock() resets any localmock() so always use globalmock() before localmock()
-  - limitation: the same procedure call cannot first be mocked by globalmock() and the later be remocked by a localmock() - unpredicted result will ucure.
+  - limitation: the same procedure call cannot first be mocked by globalmock() and then later be remocked by a localmock() - unpredicted result will ucure.
   * Samples:
 ```shell  
+globalmock('sayCalcResultWithReturn', "say 'call to sayCalcResultWithReturn mocked #1'; say 'call to sayCalcResultWithReturn mocked #2';")
+localmock('sayCalcResult', "say 'call to sayCalcResult mocked #1'; say 'call to sayCalcResult mocked #2'; say 'call to sayCalcResult mocked #3';")
 check( 'Adding 5 and 2', "calc(5,  '+', 2)",, 'to be', 7)
 check( 'Dividing 15 by 3 = 5', "calcWithoutAnyReturn 15, '/', 3", 'calcResult', '=', 5)
-localmock('sayCalcResult', "say 'call to sayCalcResult mocked #1'; say 'call to sayCalcResult mocked #2'; say 'call to sayCalcResult mocked #3';")
-globalmock('sayCalcResultWithReturn', "say 'call to sayCalcResultWithReturn mocked #1'; say 'call to sayCalcResultWithReturn mocked #2';")
 ```
 
 ## Running tests with JCL
